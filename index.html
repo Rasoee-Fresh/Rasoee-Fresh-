@@ -151,16 +151,39 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1rem;
+      padding: 0.85rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       box-shadow: var(--shadow);
-      transition: transform 0.15s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
-    .card:hover { transform: translateY(-3px); }
-    .card-icon { font-size: 2.8rem; text-align: center; margin: 0.6rem 0; }
-    .card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .card:hover { 
+      transform: translateY(-3px); 
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    /* Product Images */
+    .card-img-container {
+      width: 100%;
+      height: 145px;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+      background: #f1f5f1;
+    }
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .card:hover .card-img {
+      transform: scale(1.05);
+    }
+
+    .card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
     .card .unit { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
     .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
     .price { font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); }
@@ -173,6 +196,10 @@
       font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .add-btn:hover {
+      background: var(--primary-dark);
     }
 
     /* Store Info Section */
@@ -347,37 +374,176 @@
   </div>
 
   <script>
-    // Configured with Rasoee Fresh primary WhatsApp contact
     const STORE_PHONE = "919209116500";
 
     const catalog = [
       // Fresh Vegetables
-      { id: 1, name: "Fresh Tomatoes (टोमॅटो)", cat: "Fresh Vegetables", unit: "500 gm", price: 20, icon: "🍅" },
-      { id: 2, name: "Desi Potatoes (बटाटा)", cat: "Fresh Vegetables", unit: "1 kg", price: 20, icon: "🥔" },
-      { id: 3, name: "Red Onions (कांदा)", cat: "Fresh Vegetables", unit: "1 kg", price: 54, icon: "🧅" },
-      { id: 4, name: "Fresh Palak (पालक)", cat: "Fresh Vegetables", unit: "1 bunch", price: 25, icon: "🥬" },
-      { id: 5, name: "Green Chillies & Ginger", cat: "Fresh Vegetables", unit: "250 gm", price: 55, icon: "🫚" },
-      { id: 6, name: "Vangi", cat: "Fresh Vegetables", unit: "250 gm", price: 15, icon: "🍆" },
+      { 
+        id: 1, 
+        name: "Fresh Tomatoes (टोमॅटो)", 
+        cat: "Fresh Vegetables", 
+        unit: "500 gm", 
+        price: 20, 
+        image: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 2, 
+        name: "Desi Potatoes (बटाटा)", 
+        cat: "Fresh Vegetables", 
+        unit: "1 kg", 
+        price: 20, 
+        image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 3, 
+        name: "Red Onions (कांदा)", 
+        cat: "Fresh Vegetables", 
+        unit: "1 kg", 
+        price: 54, 
+        image: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 4, 
+        name: "Fresh Palak (पालक)", 
+        cat: "Fresh Vegetables", 
+        unit: "1 bunch", 
+        price: 25, 
+        image: "https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 5, 
+        name: "Green Chillies & Ginger", 
+        cat: "Fresh Vegetables", 
+        unit: "250 gm", 
+        price: 55, 
+        image: "https://images.unsplash.com/photo-1588252303782-cb80119abd6d?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 6, 
+        name: "Vangi (वांगी / Brinjal)", 
+        cat: "Fresh Vegetables", 
+        unit: "250 gm", 
+        price: 15, 
+        image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=400&auto=format&fit=crop&q=80" 
+      },
 
       // Fresh Fruits
-      { id: 7, name: "Fresh Apples (सफरचंद)", cat: "Fresh Fruits", unit: "500 gm", price: 148, icon: "🍎" },
-      { id: 8, name: "Robusta Bananas (केळी)", cat: "Fresh Fruits", unit: "1 Dozen", price: 50, icon: "🍌" },
-      { id: 9, name: "Sweet Oranges (संत्री)", cat: "Fresh Fruits", unit: "250 gm", price: 80, icon: "🍊" },
-      { id: 10, name: "Mosambi", cat: "Frsh Fruits",unit: "500 gm",price: 50, icon: "🍊" },
-      { id: 11, name: "Raw Banana", cat: "Fresh Fruits",unit: "500 gm",price: 50, icon: "🍌" },
-      { id: 12, name: "Pineapple", cat: "Fresh Fruits",unit: "1 pic",price: 65, icon: "🍍" },
-      { id: 13, name: "pomegranate", cat: "Fresh Fruits",unit: "500 gm",price: 100, icon: "💣" },
-      { id: 14, name: "Kiwi", cat: "Fresh Fruits",unit: "1 pac",price: 120, icon: "🥝" },
+      { 
+        id: 7, 
+        name: "Fresh Apples (सफरचंद)", 
+        cat: "Fresh Fruits", 
+        unit: "500 gm", 
+        price: 148, 
+        image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 8, 
+        name: "Robusta Bananas (केळी)", 
+        cat: "Fresh Fruits", 
+        unit: "1 Dozen", 
+        price: 50, 
+        image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 9, 
+        name: "Sweet Oranges (संत्री)", 
+        cat: "Fresh Fruits", 
+        unit: "250 gm", 
+        price: 80, 
+        image: "https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 10, 
+        name: "Mosambi (Sweet Lime)", 
+        cat: "Fresh Fruits", 
+        unit: "500 gm", 
+        price: 50, 
+        image: "https://images.unsplash.com/photo-1590502593747-42a996133562?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 11, 
+        name: "Raw Banana", 
+        cat: "Fresh Fruits", 
+        unit: "500 gm", 
+        price: 50, 
+        image: "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 12, 
+        name: "Pineapple", 
+        cat: "Fresh Fruits", 
+        unit: "1 pic", 
+        price: 65, 
+        image: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 13, 
+        name: "Pomegranate (डाळिंब)", 
+        cat: "Fresh Fruits", 
+        unit: "500 gm", 
+        price: 100, 
+        image: "https://images.unsplash.com/photo-1541344999736-83eca872f241?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 14, 
+        name: "Kiwi", 
+        cat: "Fresh Fruits", 
+        unit: "1 pac", 
+        price: 120, 
+        image: "https://images.unsplash.com/photo-1585059895524-72359e06133a?w=400&auto=format&fit=crop&q=80" 
+      },
 
       // Dairy Products
-      { id: 9, name: "Chitale Full Cream Milk", cat: "Dairy Products", unit: "500 ml", price: 39, icon: "🥛" },
-      { id: 10, name: "Amul Malai Paneer", cat: "Dairy Products", unit: "200 g pack", price: 95, icon: "🧀" },
-      { id: 11, name: "Amul Meethai Mate", cat: "Dairy Products", unit: "200 g pack", price: 68, icon: "🥣" },
+      { 
+        id: 15, 
+        name: "Full Cream Fresh Milk", 
+        cat: "Dairy Products", 
+        unit: "500 ml", 
+        price: 39, 
+        image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 16, 
+        name: "Fresh Malai Paneer", 
+        cat: "Dairy Products", 
+        unit: "200 g pack", 
+        price: 95, 
+        image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 17, 
+        name: "Sweet Condensed Milk", 
+        cat: "Dairy Products", 
+        unit: "200 g pack", 
+        price: 68, 
+        image: "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=400&auto=format&fit=crop&q=80" 
+      },
 
       // Spices
-      { id: 12, name: "Ambari Turmeric Powder (हळद)", cat: "Spices", unit: "100 g pack", price: 57, icon: "🧂" },
-      { id: 13, name: "Ambari Red Chilli Powder (मिरची पावडर)", cat: "Spices", unit: "100 g pack", price: 66, icon: "🌶️" },
-      { id: 14, name: "Cumin powder", cat: "Spices", unit: "50 g pack", price: 56, icon: "🌿" }
+      { 
+        id: 18, 
+        name: "Turmeric Powder (हळद)", 
+        cat: "Spices", 
+        unit: "100 g pack", 
+        price: 57, 
+        image: "https://images.unsplash.com/photo-1615485290176-0f7270f2f3d6?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 19, 
+        name: "Red Chilli Powder (मिरची पावडर)", 
+        cat: "Spices", 
+        unit: "100 g pack", 
+        price: 66, 
+        image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&auto=format&fit=crop&q=80" 
+      },
+      { 
+        id: 20, 
+        name: "Cumin Powder (जिरे पावडर)", 
+        cat: "Spices", 
+        unit: "50 g pack", 
+        price: 56, 
+        image: "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=400&auto=format&fit=crop&q=80" 
+      }
     ];
 
     let cart = {};
@@ -389,7 +555,15 @@
       
       grid.innerHTML = filtered.map(p => `
         <div class="card">
-          <div class="card-icon">${p.icon}</div>
+          <div class="card-img-container">
+            <img 
+              class="card-img" 
+              src="${p.image}" 
+              alt="${p.name}" 
+              loading="lazy" 
+              onerror="this.onerror=null; this.src='https://placehold.co/400x300?text=Fresh+Stock';"
+            />
+          </div>
           <h3>${p.name}</h3>
           <div class="unit">${p.unit}</div>
           <div class="card-footer">
@@ -439,6 +613,7 @@
 
       for (let id in cart) {
         const item = catalog.find(i => i.id == id);
+        if (!item) continue;
         const itemTotal = item.price * cart[id];
         total += itemTotal;
 
@@ -465,41 +640,3 @@
       const name = document.getElementById("cust-name").value.trim();
       const address = document.getElementById("cust-address").value.trim();
       const slot = document.getElementById("delivery-slot").value;
-
-      if (!name || !address) {
-        alert("Please enter your name and address.");
-        return;
-      }
-      if (Object.keys(cart).length === 0) {
-        alert("Oops Dont be in Hurry Because Good is Your First priority.");
-        return;
-      }
-
-      let text = `*New Order - Rasoee Fresh*%0A`;
-      text += `━━━━━━━━━━━━━━━━━━━%0A`;
-      text += `👤 *Customer:* ${name}%0A`;
-      text += `📍 *Delivery Address:* ${address}%0A`;
-      text += `⏰ *Slot:* ${slot}%0A`;
-      text += `━━━━━━━━━━━━━━━━━━━%0A`;
-      text += `*Items Ordered:*%0A`;
-
-      let total = 0;
-      for (let id in cart) {
-        const item = catalog.find(i => i.id == id);
-        const subtotal = item.price * cart[id];
-        total += subtotal;
-        text += `• ${item.name} x ${cart[id]} = ₹${subtotal}%0A`;
-      }
-
-      text += `━━━━━━━━━━━━━━━━━━━%0A`;
-      text += `*Estimated Total: ₹${total}*%0A`;
-      text += `Payment: Cash on Delivery / UPI`;
-
-      window.open(`https://wa.me/${STORE_PHONE}?text=${text}`, '_blank');
-    }
-
-    renderProducts();
-  </script>
-</body>
-          </html>
-          
